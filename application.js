@@ -63,16 +63,6 @@ function getTranslationText(text){
   }
   return false;
 }
-$("input[name='french']").click(function(){
-  var frenchValue = $("input[name='french']:checked").val();
-  frenchText.innerText = frenchValue;
-});
-$("input[name='wolof']").click(function(){
-var wolofValue = $("input[name='wolof']:checked").val();
-wolofText.innerText = wolofValue;
-});
-$(document).on("click", '#btn_edit',function(e) {
-});
 
 function clickEventHandler(){
     var inputTxt = inputText.value;
@@ -89,9 +79,7 @@ function saveEventHandler()
 
 }
 
-btnTranslate.addEventListener("click",clickEventHandler)
-// btnEditer.addEventListener("click",editTranslationText)
-// btnSave.addEventListener("click",saveEventHandler)
+btnTranslate.addEventListener("click",clickEventHandler);
 
 function editTranslationText(text_wolof, text_french){
 
@@ -102,8 +90,6 @@ function editTranslationText(text_wolof, text_french){
     {
       frenchText.innerText = words[i].word.fr;
       wolofText.innerText = words[i].word.wo;
-      alert(words[i].word.fr)
-      alert(words[i].word.wo)
       return true;
     }
 
