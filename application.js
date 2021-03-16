@@ -1,5 +1,4 @@
 var btnTranslate = document.querySelector("#btn-translate");
-var btnEditer = document.querySelector("#btn-editer");
 var inputText = document.querySelector('#input-text');
 var outputText = document.querySelector("#output-text");
 
@@ -8,8 +7,8 @@ table += '<table id="datatable" class="table table-bordered table-responsive-md 
 table += '<thead class="thead-dark">';
 table += '<tr>';
 table += '<th class="pt-3-half">#</th>';
-table += '<th class="pt-3-half">WOLOF</th>';
 table += '<th class="pt-3-half">FRENCH</th>';
+table += '<th class="pt-3-half">WOLOF</th>';
 table += '</tr>';
 table += '</thead>';
 table += '<tbody>';
@@ -23,8 +22,8 @@ function createTable(){
 
     table +='<tr>'
     table +='<th scope="row">'+i+'</th>'
-    table +='<td contenteditable="true">'+ words[i].word.wo +'</td>'
     table +='<td contenteditable="true">'+ words[i].word.fr +'</td>'
+    table +='<td contenteditable="true">'+ words[i].word.wo +'</td>'
     table +='</tr>'
   }
   table += '</tbody></table>'
@@ -71,14 +70,6 @@ function clickEventHandler(){
 }
 
 
-function saveEventHandler()
-{
-    var inputWo_Txt = wolofText.value;
-    var inputFr_Txt = frenchText.value;
-    saveText(inputWo_Txt, inputFr_Txt);
-
-}
-
 btnTranslate.addEventListener("click",clickEventHandler);
 
 function editTranslationText(text_wolof, text_french){
@@ -99,16 +90,6 @@ function editTranslationText(text_wolof, text_french){
 
 
 
-function saveText(inputWo_Txt, inputFr_Txt){
-  const data =  { word : { fr : inputFr_Txt, wo : inputWo_Txt}};              //sample json
-  const a = document.createElement('a');
-  const blob = new Blob([JSON.stringify(data)]);
-  a.href = URL.createObjectURL(blob);
-  a.download = 'edit.txt';                     //filename to download
-  $("#edit_modal").modal('hide');
-  a.click();
-}
-
 
 words =
   [
@@ -116,7 +97,7 @@ words =
     {"word" : { "fr" : "bonsoir", "wo" : "naka ngon si" }},
     {"word" : { "fr" : "bonne nuit", "wo" : "ñu fanane ak jamm"}},
     {"word" : { "fr" : "hello", "wo" : "naga def" }},
-    {"word" : { "fr" : "こんにちは", "wo" : "naga def" }},
+    {"word" : { "fr" : "こんにちは konnichiwa", "wo" : "naga def" }},
     {"word" : { "fr" : "un", "wo" : "benn" }},
     {"word" : { "fr" : "deux", "wo" : "ñaar" }},
     {"word" : { "fr" : "trois", "wo" : "ñett" }},
