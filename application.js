@@ -10,9 +10,10 @@ table = "";
 table += '<table class="table table-bordered table-responsive-md table-striped text-left">';
 table += '<thead class="thead-dark">';
 table += '<tr>';
-table += '<th class="pt-3-half" contenteditable="true">#</th>';
-table += '<th class="pt-3-half" contenteditable="true">WOLOF</th>';
-table += '<th class="pt-3-half" contenteditable="true">FRENCH</th>';
+table += '<th class="pt-3-half">#</th>';
+table += '<th class="pt-3-half">WOLOF</th>';
+table += '<th class="pt-3-half">FRENCH</th>';
+table += '<th class="text-center">Edit</th>';
 table += '</tr>';
 table += '</thead>';
 table += '<tbody>';
@@ -26,8 +27,9 @@ function createTable(){
 
     table +='<tr>'
     table +='<th scope="row">'+i+'</th>'
-    table +='<td>'+ words[i].word.wo +'</td>'
-    table +='<td>'+ words[i].word.fr +'</td>'
+    table +='<td contenteditable="true">'+ words[i].word.wo +'</td>'
+    table +='<td contenteditable="true">'+ words[i].word.fr +'</td>'
+    table +='<td><span class="table-save"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0">Save</button></span></td>'
     table +='</tr>'
   }
   table += '</tbody></table>'
