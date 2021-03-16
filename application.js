@@ -1,10 +1,7 @@
 var btnTranslate = document.querySelector("#btn-translate");
 var btnEditer = document.querySelector("#btn-editer");
-// var btnSave = document.querySelector("#btn-save");
 var inputText = document.querySelector('#input-text');
 var outputText = document.querySelector("#output-text");
-// var wolofText = document.querySelector("#wolof-text");
-// var frenchText = document.querySelector("#french-text");
 
 table = "";
 table += '<table id="datatable" class="table table-bordered table-responsive-md table-striped text-left">';
@@ -37,7 +34,7 @@ function createTable(){
          var $table = $(this);
 
          var $button = $("<button type='button'>");
-         $button.text("Export to spreadsheet");
+         $button.text("Export to Excel");
          $button.insertAfter($table);
 
          $button.click(function () {
