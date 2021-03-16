@@ -14,7 +14,7 @@
         exclude: ".noExl",
         name: "Table2Excel",
         filename: "table2excel",
-        fileext: ".xls",
+        fileext: ".xlsx",
         exclude_img: true,
         exclude_links: true,
         exclude_inputs: true,
@@ -55,7 +55,7 @@
             };
 
             e.tableRows = [];
-	
+
 			// Styling variables
 			var additionalStyles = "";
 			var compStyle = null;
@@ -64,10 +64,10 @@
             $(e.element).each( function(i,o) {
                 var tempRows = "";
                 $(o).find("tr").not(e.settings.exclude).each(function (i,p) {
-					
+
 					// Reset for this row
 					additionalStyles = "";
-					
+
 					// Preserve background and text colors on the row
 					if(e.settings.preserveColors){
 						compStyle = getComputedStyle(p);
@@ -77,13 +77,13 @@
 
 					// Create HTML for Row
                     tempRows += "<tr style='" + additionalStyles + "'>";
-                    
+
                     // Loop through each TH and TD
                     $(p).find("td,th").not(e.settings.exclude).each(function (i,q) { // p did not exist, I corrected
-						
+
 						// Reset for this column
 						additionalStyles = "";
-						
+
 						// Preserve background and text colors on the row
 						if(e.settings.preserveColors){
 							compStyle = getComputedStyle(q);

@@ -40,7 +40,7 @@ function createTable(){
              var excel = $table.table2excel({
                exclude: ".excludeThisClass",
                name: "Worksheet Name",
-               filename: "edited_list.xlsx", // do include extension
+               filename: "edited_list", // do include extension
                preserveColors: false // set to true if you want background colors and font colors preserved
              });
          });
