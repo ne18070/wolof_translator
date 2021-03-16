@@ -1,6 +1,7 @@
 var btnTranslate = document.querySelector("#btn-translate");
 var inputText = document.querySelector('#input-text');
 var outputText = document.querySelector("#output-text");
+var $bt_n = document.querySelector("#bt_n");
 
 table = "";
 table += '<table id="datatable" class="table table-bordered table-responsive-md table-striped text-left">';
@@ -34,7 +35,7 @@ function createTable(){
 
          var $button = $("<button type='button'>");
          $button.text("Export to Excel");
-         $button.insertAfter($table);
+         $button.insertAfter($bt_n);
 
          $button.click(function () {
              var excel = $table.table2excel({
