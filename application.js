@@ -13,7 +13,6 @@ table += '<tr>';
 table += '<th class="pt-3-half">#</th>';
 table += '<th class="pt-3-half">WOLOF</th>';
 table += '<th class="pt-3-half">FRENCH</th>';
-table += '<th><span class="table-save"><a download="somedata.xls" href="#" onclick="return ExcellentExport.excel(this, "datatable", "edited_list");">Export to Excel</a></span></th>'
 table += '</tr>';
 table += '</thead>';
 table += '<tbody>';
@@ -33,6 +32,23 @@ function createTable(){
   }
   table += '</tbody></table>'
   document.getElementById("table").innerHTML = table;
+
+  $('table').each(function () {
+         var $table = $(this);
+
+         var $button = $("<button type='button'>");
+         $button.text("Export to spreadsheet");
+         $button.insertAfter($table);
+
+         $button.click(function () {
+             var excel = $table.table2excel({
+               exclude: ".excludeThisClass",
+               name: "Worksheet Name",
+               filename: "edited_list.xls", // do include extension
+               preserveColors: false // set to true if you want background colors and font colors preserved
+             });
+         });
+     });
 }
 
 function getTranslationText(text){
@@ -97,6 +113,8 @@ function editTranslationText(text_wolof, text_french){
   }
   return false;
 }
+
+
 
 function saveText(inputWo_Txt, inputFr_Txt){
   const data =  { word : { fr : inputFr_Txt, wo : inputWo_Txt}};              //sample json
