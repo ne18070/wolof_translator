@@ -1,19 +1,19 @@
 var btnTranslate = document.querySelector("#btn-translate");
 var btnEditer = document.querySelector("#btn-editer");
-var btnSave = document.querySelector("#btn-save");
+// var btnSave = document.querySelector("#btn-save");
 var inputText = document.querySelector('#input-text');
 var outputText = document.querySelector("#output-text");
-var wolofText = document.querySelector("#wolof-text");
-var frenchText = document.querySelector("#french-text");
+// var wolofText = document.querySelector("#wolof-text");
+// var frenchText = document.querySelector("#french-text");
 
 table = "";
-table += '<table class="table table-bordered table-responsive-md table-striped text-left">';
+table += '<table id="datatable" class="table table-bordered table-responsive-md table-striped text-left">';
 table += '<thead class="thead-dark">';
 table += '<tr>';
 table += '<th class="pt-3-half">#</th>';
 table += '<th class="pt-3-half">WOLOF</th>';
 table += '<th class="pt-3-half">FRENCH</th>';
-table += '<th class="text-center">Edit</th>';
+table += '<th><span class="table-save"><a download="somedata.xls" href="#" onclick="return ExcellentExport.excel(this, "datatable", "edited_list");">Export to Excel</a></span></th>'
 table += '</tr>';
 table += '</thead>';
 table += '<tbody>';
@@ -29,7 +29,6 @@ function createTable(){
     table +='<th scope="row">'+i+'</th>'
     table +='<td contenteditable="true">'+ words[i].word.wo +'</td>'
     table +='<td contenteditable="true">'+ words[i].word.fr +'</td>'
-    table +='<td><span class="table-save"><button type="button" class="btn btn-primary btn-rounded btn-sm my-0">Save</button></span></td>'
     table +='</tr>'
   }
   table += '</tbody></table>'
@@ -78,8 +77,8 @@ function saveEventHandler()
 }
 
 btnTranslate.addEventListener("click",clickEventHandler)
-btnEditer.addEventListener("click",editTranslationText)
-btnSave.addEventListener("click",saveEventHandler)
+// btnEditer.addEventListener("click",editTranslationText)
+// btnSave.addEventListener("click",saveEventHandler)
 
 function editTranslationText(text_wolof, text_french){
 
