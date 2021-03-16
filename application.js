@@ -46,9 +46,9 @@ function createTable(){
              });
          });
      });
-     $("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
 }
 
+$("html, body").animate({ scrollTop: $(document).height()-$(window).height() });
 function getTranslationText(text){
   var texte ="";
   texte = text.toLowerCase().trim();
