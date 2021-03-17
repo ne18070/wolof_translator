@@ -16,7 +16,7 @@ table += '<tbody>';
 $(document).ready(function(){
 createTable();
 $("#btn-translate").click(function() {
-    $('#traduction').load("language-translator-v3.json", {
+    $('#traduction').load("./language-translator-v3.json", {
       "source": "fr",
       "target": "wo",
       "text": $("#input-text").val()
