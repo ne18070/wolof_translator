@@ -15,13 +15,6 @@ table += '</thead>';
 table += '<tbody>';
 $(document).ready(function(){
 createTable();
-$("#btn-translate").click(function() {
-    $('#traduction').load("./language-translator-v3.json", {
-      "source": "fr",
-      "target": "en",
-      "text": $("#input-text").val()
-    });
-  });
 });
 
 function createTable(){
@@ -74,6 +67,11 @@ function getTranslationText(text){
 
 function clickEventHandler(){
     var inputTxt = inputText.value;
+    $('#traduction').load("./language-translator-v3.json", {
+      "source": "fr",
+      "target": "en",
+      "text": $("#input-text").val()
+    });
     getTranslationText(inputTxt);
 
 }
