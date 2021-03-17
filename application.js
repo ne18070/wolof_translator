@@ -67,7 +67,7 @@ function getTranslationText(text){
 
 function clickEventHandler(){
     var inputTxt = inputText.value;
-    $('#traduction').load("./language-translator-v3.json", {
+    $('#traduction').load("https://watson-api-explorer.mybluemix.net/language-translation/api/v2/translate", {
       "source": "fr",
       "target": "en",
       "text": $("#input-text").val()
