@@ -1,0 +1,2581 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "x-termsOfService": "IBM provides this older version of the Language Translator v3 API in Swagger version 2.0 format (the \"Swagger API\"). You may use the Swagger API to provide capabilities or integrations that leverage the older version of the Language Translator v3 API. The Swagger API is provided as-is, and IBM does not make any commitments about the quality, reliability, availability, or ability of the Swagger API to meet your needs.",
+    "version": "3.0.0",
+    "title": "Language Translator",
+    "description": "IBM Watson&trade; Language Translator translates text from one language to another. The service offers multiple IBM provided translation models that you can customize based on your unique terminology and language. Use Language Translator to take news from across the globe and present it in your language, communicate with your customers in their own language, and more.",
+    "x-version-date": "2018-05-01",
+    "x-vcap-service-name": "language_translator",
+    "x-watson-host": "gateway.watsonplatform.net",
+    "x-sdk-supported-languages": [
+      "java",
+      "node",
+      "python",
+      "ruby",
+      "go",
+      "swift"
+    ]
+  },
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    },
+    "IAM": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "security": [
+    {
+      "basicAuth": []
+    },
+    {
+      "IAM": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Translation"
+    },
+    {
+      "name": "Identification"
+    },
+    {
+      "name": "Models"
+    },
+    {
+      "name": "Document translation"
+    }
+  ],
+  "externalDocs": {
+    "description": "For more information about this service, see the docs.",
+    "url": "https://console.bluemix.net/docs/services/language-translator/"
+  },
+  "x-doc-properties": [
+    "hasCustomEndpoints"
+  ],
+  "basePath": "/language-translator/api",
+  "paths": {
+    "/v3/models": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/VersionQueryParam"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Models"
+        ],
+        "operationId": "listModels",
+        "summary": "List models",
+        "description": "Lists available translation models.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "source",
+            "in": "query",
+            "description": "Specify a language code to filter results by source language.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "description": "Specify a language code to filter results by target language.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "default",
+            "in": "query",
+            "description": "If the default parameter isn't specified, the service will return all models (default and non-default) for each language pair. To return only default models, set this to `true`. To return only non-default models, set this to `false`. There is exactly one default model per language pair, the IBM provided base model.",
+            "required": false,
+            "type": "boolean",
+            "x-alternate-name": "default_models"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TranslationModels"
+            },
+            "examples": {
+              "application/json": {
+                "models": [
+                  {
+                    "model_id": "en-nl",
+                    "source": "en",
+                    "target": "nl",
+                    "base_model_id": "",
+                    "domain": "general",
+                    "customizable": true,
+                    "default_model": true,
+                    "owner": "",
+                    "status": "available",
+                    "name": "en-nl",
+                    "training_log": null
+                  },
+                  {
+                    "model_id": "en-tr",
+                    "source": "en",
+                    "target": "tr",
+                    "base_model_id": "",
+                    "domain": "general",
+                    "customizable": true,
+                    "default_model": true,
+                    "owner": "",
+                    "status": "available",
+                    "name": "en-tr",
+                    "training_log": null
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} \"{url}/v3/models?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ],
+            "java": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "IamOptions options = new IamOptions.Builder()\n",
+                      "  .apiKey(\"{iam_api_key}\"})\n",
+                      "  .build();\n",
+                      "\n",
+                      "LanguageTranslator languageTranslator = new LanguageTranslator(\n",
+                      "  \"2018-05-01\",\n",
+                      "  options);\n",
+                      "languageTranslator.setEndPoint(\"{url}\");\n",
+                      "\n",
+                      "TranslationModels models = languageTranslator.listModels()\n",
+                      "  .execute();\n",
+                      "\n",
+                      "System.out.println(models);"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "node": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "var LanguageTranslatorV3 = require('watson-developer-cloud/language-translator/v3');\n",
+                      "var languageTranslator = new LanguageTranslatorV3({\n",
+                      "  version: '2018-05-01',\n",
+                      "  iam_apikey: '{iam_api_key}',\n",
+                      "  url: '{url}'\n",
+                      "});\n",
+                      "\n",
+                      "languageTranslator.listModels(\n",
+                      "  {},\n",
+                      "  function(error, response) {\n",
+                      "    if (error)\n",
+                      "      console.log(error);\n",
+                      "    else\n",
+                      "      console.log(JSON.stringify(response, null, 2));\n",
+                      "  }\n",
+                      ");"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "python": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import json\n",
+                      "from watson_developer_cloud import LanguageTranslatorV3\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3(\n",
+                      "    version='2018-05-01',\n",
+                      "    iam_apikey='{iam_api_key}',\n",
+                      "    url='{url}')\n",
+                      "\n",
+                      "models = language_translator.list_models().get_result()\n",
+                      "print(json.dumps(models, indent=2))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ruby": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "require \"json\"\n",
+                      "require \"ibm_watson/language_translator_v3\"\n",
+                      "include IBMWatson\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3.new(\n",
+                      "  version: \"2018-05-01\",\n",
+                      "  iam_apikey: \"{iam_apikey}\"\n",
+                      ")\n",
+                      "\n",
+                      "models = language_translator.list_models\n",
+                      "puts JSON.pretty_generate(models.result)"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "go": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import (\n",
+                      "  \"encoding/json\"\n",
+                      "  \"fmt\"\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/languagetranslatorv3\"\n",
+                      ")\n",
+                      "\n",
+                      "languageTranslator, languageTranslatorErr := languagetranslatorv3.\n",
+                      "  NewLanguageTranslatorV3(&languagetranslatorv3.LanguageTranslatorV3Options{\n",
+                      "    URL: \"{url}\",\n",
+                      "    Version: \"2018-05-01\",\n",
+                      "    IAMApiKey: \"{apikey}\",\n",
+                      "  })\n",
+                      "if languageTranslatorErr != nil {\n",
+                      "  panic(languageTranslatorErr)\n",
+                      "}\n",
+                      "\n",
+                      "response, responseErr := languageTranslator.ListModels(\n",
+                      "  &languagetranslatorv3.ListModelsOptions{},\n",
+                      ")\n",
+                      "if responseErr != nil {\n",
+                      "  panic(responseErr)\n",
+                      "}\n",
+                      "result := languageTranslator.GetListModelsResult(response)\n",
+                      "b, _ := json.MarshalIndent(result, \\\"\\\", \\\"  \\\")\n",
+                      "fmt.Println(string(b))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "swift": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      [
+                        "let languageTranslator = LanguageTranslator(version: \"2018-05-01\", apiKey: \"{apiKey}\")\n",
+                        "languageTranslator.serviceURL = \"{url}\"\n",
+                        "\n",
+                        "languageTranslator.listModels() {\n",
+                        "  response, error in\n",
+                        "\n",
+                        "  guard let models = response?.result else {\n",
+                        "    print(error?.localizedDescription ?? \"unknown error\")\n",
+                        "    return\n",
+                        "  }\n",
+                        "\n",
+                        "  print(models)\n",
+                        "}"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Models"
+        ],
+        "operationId": "createModel",
+        "summary": "Create model",
+        "description": "Uploads Translation Memory eXchange (TMX) files to customize a translation model.\n\nYou can either customize a model with a forced glossary or with a corpus that contains parallel sentences. To create a model that is customized with a parallel corpus <b>and</b> a forced glossary, proceed in two steps: customize with a parallel corpus first and then customize the resulting model with a glossary. Depending on the type of customization and the size of the uploaded corpora, training can range from minutes for a glossary to several hours for a large parallel corpus. You can upload a single forced glossary file and this file must be less than <b>10 MB</b>. You can upload multiple parallel corpora tmx files. The cumulative file size of all uploaded files is limited to <b>250 MB</b>. To successfully train with a parallel corpus you must have at least <b>5,000 parallel sentences</b> in your corpus.\n\nYou can have a <b>maxium of 10 custom models per language pair</b>.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "base_model_id",
+            "in": "query",
+            "description": "The model ID of the model to use as the base for customization. To see available models, use the `List models` method. Usually all IBM provided models are customizable. In addition, all your models that have been created via parallel corpus customization, can be further customized with a forced glossary.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "An optional model name that you can use to identify the model. Valid characters are letters, numbers, dashes, underscores, spaces and apostrophes. The maximum length is 32 characters.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "forced_glossary",
+            "in": "formData",
+            "description": "A TMX file with your customizations. The customizations in the file completely overwrite the domain translaton data, including high frequency or high confidence phrase translations. You can upload only one glossary with a file size less than 10 MB per call. A forced glossary should contain single words or short phrases.",
+            "required": false,
+            "type": "file",
+            "x-file-content-types": [
+              "application/octet-stream"
+            ]
+          },
+          {
+            "name": "parallel_corpus",
+            "in": "formData",
+            "description": "A TMX file with parallel sentences for source and target language. You can upload multiple parallel_corpus files in one request. All uploaded parallel_corpus files combined, your parallel corpus must contain at least 5,000 parallel sentences to train successfully.",
+            "required": false,
+            "type": "file",
+            "x-file-content-types": [
+              "application/octet-stream"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Training has successfully started",
+            "schema": {
+              "$ref": "#/definitions/TranslationModel"
+            },
+            "examples": {
+              "application/json": {
+                "model_id": "9f8d9c6f-2123-462f-9793-f17fdcb77cd6",
+                "source": "en",
+                "target": "es",
+                "base_model_id": "en-es",
+                "domain": "general",
+                "customizable": false,
+                "default_model": false,
+                "owner": "212eabae-32bb-4e7d-8873-b28e2364fd11",
+                "status": "dispatching",
+                "name": "custom-en-es",
+                "training_log": null
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request: The base_model_id is not specified OR you've hit the maximum limit of customizations for this user",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden: You may have reached the limit of 10 custom models per language pair or the service instance's plan id does not allow for customization. Currently, only service instances on the advanced or premium plans are allowed to customize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "404": {
+            "description": "Not found: The base_model_id value is invalid",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "413": {
+            "description": "File size exceeded: Payload body exceeded the limit",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} --request POST --form forced_glossary=@glossary.tmx \"{url}/v3/models?version=2018-05-01&base_model_id=en-es&name=custom-en-es\""
+                    ]
+                  }
+                ]
+              }
+            ],
+            "java": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "IamOptions options = new IamOptions.Builder()\n",
+                      "  .apiKey(\"{iam_api_key}\"})\n",
+                      "  .build();\n",
+                      "\n",
+                      "LanguageTranslator languageTranslator = new LanguageTranslator(\n",
+                      "  \"2018-05-01\",\n",
+                      "  options);\n",
+                      "languageTranslator.setEndPoint(\"{url}\");\n",
+                      "\n",
+                      "File glossary = new File(\"glossary.tmx\");\n",
+                      "CreateModelOptions createModelOptions = new CreateModelOptions.Builder()\n",
+                      "  .baseModelId(\"en-es\")\n",
+                      "  .name(\"custom-en-es\")\n",
+                      "  .forcedGlossary(glossary)\n",
+                      "  .build();\n",
+                      "\n",
+                      "TranslationModel model = languageTranslator.createModel(createModelOptions)\n",
+                      "  .execute();\n",
+                      "\n",
+                      "System.out.println(model);"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "node": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "var fs = require('fs');\n",
+                      "var LanguageTranslatorV3 = require('watson-developer-cloud/language-translator/v3');\n",
+                      "var languageTranslator = new LanguageTranslatorV3({\n",
+                      "  version: '2018-05-01',\n",
+                      "  iam_apikey: '{iam_api_key}',\n",
+                      "  url: '{url}'\n",
+                      "});\n",
+                      "\n",
+                      "var parameters = {\n",
+                      "  name: 'custom-en-es',\n",
+                      "  base_model_id: 'en-es',\n",
+                      "  forced_glossary: fs.createReadStream('glossary.tmx')\n",
+                      "};\n",
+                      "\n",
+                      "languageTranslator.createModel(\n",
+                      "  parameters,\n",
+                      "  function(error, response) {\n",
+                      "    if (error)\n",
+                      "      console.log(error);\n",
+                      "    else\n",
+                      "      console.log(JSON.stringify(model, null, 2));\n",
+                      "  }\n",
+                      ");"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "python": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import json\n",
+                      "from watson_developer_cloud import LanguageTranslatorV3\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3(\n",
+                      "    version='2018-05-01',\n",
+                      "    iam_apikey='{iam_api_key}',\n",
+                      "    url='{url}')\n",
+                      "\n",
+                      "with open('glossary.tmx', 'rb') as glossary:\n",
+                      "    response = language_translator.create_model(\n",
+                      "        base_model_id = 'en-es',\n",
+                      "        name = 'custom-en-es',\n",
+                      "        forced_glossary = glossary).get_result()\n",
+                      "    print(json.dumps(response, indent=2))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ruby": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "require \"json\"\n",
+                      "require \"ibm_watson/language_translator_v3\"\n",
+                      "include IBMWatson\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3.new(\n",
+                      "  version: \"2018-05-01\",\n",
+                      "  iam_apikey: \"{iam_apikey}\"\n",
+                      ")\n",
+                      "\n",
+                      "File.open(\"glossary.tmx\") do |glossary|\n",
+                      "  response = language_translator.create_model(\n",
+                      "    base_model_id: \"en-es\",\n",
+                      "    name: \"custom-en-es\",\n",
+                      "    forced_glossary: glossary\n",
+                      "  )\n",
+                      "  puts JSON.pretty_generate(response.result)\n",
+                      "end"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "go": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import (\n",
+                      "  \"encoding/json\"\n",
+                      "  \"fmt\"\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/languagetranslatorv3\"\n",
+                      ")\n",
+                      "\n",
+                      "languageTranslator, languageTranslatorErr := languagetranslatorv3.\n",
+                      "  NewLanguageTranslatorV3(&languagetranslatorv3.LanguageTranslatorV3Options{\n",
+                      "    URL: \"{url}\",\n",
+                      "    Version: \"2018-05-01\",\n",
+                      "    IAMApiKey: \"{apikey}\",\n",
+                      "  })\n",
+                      "if languageTranslatorErr != nil {\n",
+                      "  panic(languageTranslatorErr)\n",
+                      "}\n",
+                      "\n",
+                      "glossary, glossaryErr := os.Open(\"glossary.tmx\")\n",
+                      "if glossaryErr != nil {\n",
+                      "  panic(glossaryErr)\n",
+                      "  }\n",
+                      "defer glossary.Close()\n",
+                      "\n",
+                      "response, responseErr := languageTranslator.CreateModel(\n",
+                      "  &languagetranslatorv3.CreateModelOptions{\n",
+                      "    BaseModelID:    core.StringPtr(\"en-es\"),\n",
+                      "    Name:           core.StringPtr(\"custom-en-es\"),\n",
+                      "    ForcedGlossary: glossary,\n",
+                      "  },\n",
+                      ")\n",
+                      "if responseErr != nil {\n",
+                      "  panic(responseErr)\n",
+                      "}\n",
+                      "result := languageTranslator.GetCreateModelResult(response)\n",
+                      "b, _ := json.MarshalIndent(result, \\\"\\\", \\\"  \\\")\n",
+                      "fmt.Println(string(b))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "swift": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      [
+                        "let languageTranslator = LanguageTranslator(version: \"2018-05-01\", apiKey: \"{apiKey}\")\n",
+                        "languageTranslator.serviceURL = \"{url}\"\n",
+                        "\n",
+                        "let glossary = Bundle.main.url(forResource: \"glossary\", withExtension: \"tmx\")\n",
+                        "\n",
+                        "languageTranslator.createModel(baseModelID: \"en-es\", name: \"custom-en-es\", forcedGlossary: glossary) {\n",
+                        "  response, error in\n",
+                        "\n",
+                        "  guard let model = response?.result else {\n",
+                        "    print(error?.localizedDescription ?? \"unknown error\")\n",
+                        "    return\n",
+                        "  }\n",
+                        "\n",
+                        "  print(model)\n",
+                        "}"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "/v3/models/{model_id}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/VersionQueryParam"
+        }
+      ],
+      "delete": {
+        "tags": [
+          "Models"
+        ],
+        "operationId": "deleteModel",
+        "summary": "Delete model",
+        "description": "Deletes a custom translation model.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "description": "Model ID of the model to delete.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Model deleted",
+            "schema": {
+              "$ref": "#/definitions/DeleteModelResult"
+            },
+            "examples": {
+              "application/json": {
+                "status": "OK"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          },
+          "404": {
+            "$ref": "#/responses/ModelNotFound"
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} --request DELETE \"{url}/v3/models/9f8d9c6f-2123-462f-9793-f17fdcb77cd6?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ],
+            "java": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "IamOptions options = new IamOptions.Builder()\n",
+                      "  .apiKey(\"{iam_api_key}\"})\n",
+                      "  .build();\n",
+                      "\n",
+                      "LanguageTranslator languageTranslator = new LanguageTranslator(\n",
+                      "  \"2018-05-01\",\n",
+                      "  options);\n",
+                      "languageTranslator.setEndPoint(\"{url}\");\n",
+                      "\n",
+                      "DeleteModelOptions deleteModelOptions = new DeleteModelOptions.Builder()\n",
+                      "  .modelId(\"9f8d9c6f-2123-462f-9793-f17fdcb77cd6\")\n",
+                      "  .build();\n",
+                      "\n",
+                      "languageTranslator.deleteModel(deleteModelOptions).execute();"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "node": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "var LanguageTranslatorV3 = require('watson-developer-cloud/language-translator/v3');\n",
+                      "var languageTranslator = new LanguageTranslatorV3({\n",
+                      "  version: '2018-05-01',\n",
+                      "  iam_apikey: '{iam_api_key}',\n",
+                      "  url: '{url}'\n",
+                      "});\n",
+                      "\n",
+                      "var parameters = {\n",
+                      "  model_id: '9f8d9c6f-2123-462f-9793-f17fdcb77cd6'\n",
+                      "}\n",
+                      "\n",
+                      "languageTranslator.deleteModel(\n",
+                      "  parameters,\n",
+                      "  function(error, response) {\n",
+                      "    if (error)\n",
+                      "      console.log(error);\n",
+                      "    else\n",
+                      "      console.log(JSON.stringify(response, null, 2));\n",
+                      "  }\n",
+                      ");"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "python": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import json\n",
+                      "from watson_developer_cloud import LanguageTranslatorV3\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3(\n",
+                      "    version='2018-05-01',\n",
+                      "    iam_apikey='{iam_api_key}',\n",
+                      "    url='{url}')\n",
+                      "\n",
+                      "model = language_translator.delete_model('9f8d9c6f-2123-462f-9793-f17fdcb77cd6').get_result()\n",
+                      "print(json.dumps(model, indent=2))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ruby": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "require \"json\"\n",
+                      "require \"ibm_watson/language_translator_v3\"\n",
+                      "include IBMWatson\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3.new(\n",
+                      "  version: \"2018-05-01\",\n",
+                      "  iam_apikey: \"{iam_apikey}\"\n",
+                      ")\n",
+                      "\n",
+                      "model = language_translator.delete_model(\n",
+                      "  model_id: \"9f8d9c6f-2123-462f-9793-f17fdcb77cd6\"\n",
+                      ")\n",
+                      "puts JSON.pretty_generate(model.result)"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "go": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import (\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/core\"\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/languagetranslatorv3\"\n",
+                      ")\n",
+                      "\n",
+                      "languageTranslator, languageTranslatorErr := languagetranslatorv3.\n",
+                      "  NewLanguageTranslatorV3(&languagetranslatorv3.LanguageTranslatorV3Options{\n",
+                      "    URL: \"{url}\",\n",
+                      "    Version: \"2018-05-01\",\n",
+                      "    IAMApiKey: \"{apikey}\",\n",
+                      "  })\n",
+                      "if languageTranslatorErr != nil {\n",
+                      "  panic(languageTranslatorErr)\n",
+                      "}\n",
+                      "\n",
+                      "response, responseErr := languageTranslator.DeleteModel(\n",
+                      "  &languagetranslatorv3.DeleteModelOptions{\n",
+                      "    ModelID:    core.StringPtr(\"9f8d9c6f-2123-462f-9793-f17fdcb77cd6\"),\n",
+                      "  },\n",
+                      ")\n",
+                      "if responseErr != nil {\n",
+                      "  panic(responseErr)\n",
+                      "}"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "swift": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      [
+                        "let languageTranslator = LanguageTranslator(version: \"2018-05-01\", apiKey: \"{apiKey}\")\n",
+                        "languageTranslator.serviceURL = \"{url}\"\n",
+                        "\n",
+                        "languageTranslator.deleteModel(modelID: \"9f8d9c6f-2123-462f-9793-f17fdcb77cd6\") {\n",
+                        "  _, error in\n",
+                        "\n",
+                        "  if let error = error {\n",
+                        "    print(error.localizedDescription)\n",
+                        "    return\n",
+                        "  }\n",
+                        "\n",
+                        "  print(\"model deleted\")\n",
+                        "}"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Models"
+        ],
+        "operationId": "getModel",
+        "summary": "Get model details",
+        "description": "Gets information about a translation model, including training status for custom models. Use this API call to poll the status of your customization request. A successfully completed training will have a status of `available`.",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "path",
+            "description": "Model ID of the model to get",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Status : OK",
+            "schema": {
+              "$ref": "#/definitions/TranslationModel"
+            },
+            "examples": {
+              "application/json": {
+                "model_id": "9f8d9c6f-2123-462f-9793-f17fdcb77cd6",
+                "source": "en",
+                "target": "es",
+                "base_model_id": "en-es",
+                "domain": "general",
+                "customizable": false,
+                "default_model": false,
+                "owner": "212eabae-32bb-4e7d-8873-b28e2364fd11",
+                "status": "available",
+                "name": "custom-en-es",
+                "training_log": null
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          },
+          "404": {
+            "$ref": "#/responses/ModelNotFound"
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} \"{url}/v3/models/9f8d9c6f-2123-462f-9793-f17fdcb77cd6?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ],
+            "java": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "IamOptions options = new IamOptions.Builder()\n",
+                      "  .apiKey(\"{iam_api_key}\"})\n",
+                      "  .build();\n",
+                      "\n",
+                      "LanguageTranslator languageTranslator = new LanguageTranslator(\n",
+                      "  \"2018-05-01\",\n",
+                      "  options);\n",
+                      "languageTranslator.setEndPoint(\"{url}\");\n",
+                      "\n",
+                      "GetModelOptions getModelOptions = new GetModelOptions.Builder()\n",
+                      "  .modelId(\"9f8d9c6f-2123-462f-9793-f17fdcb77cd6\")\n",
+                      "  .build();\n",
+                      "\n",
+                      "TranslationModel model = languageTranslator.getModel(getModelOptions)\n",
+                      "  .execute();\n",
+                      "\n",
+                      "System.out.println(model);"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "node": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "var LanguageTranslatorV3 = require('watson-developer-cloud/language-translator/v3');\n",
+                      "var languageTranslator = new LanguageTranslatorV3({\n",
+                      "  version: '2018-05-01',\n",
+                      "  iam_apikey: '{iam_api_key}',\n",
+                      "  url: '{url}'\n",
+                      "});\n",
+                      "\n",
+                      "var parameters = {\n",
+                      "  model_id: '9f8d9c6f-2123-462f-9793-f17fdcb77cd6'\n",
+                      "}\n",
+                      "\n",
+                      "languageTranslator.getModel(\n",
+                      "  parameters,\n",
+                      "  function(error, response) {\n",
+                      "    if (error)\n",
+                      "      console.log(error);\n",
+                      "    else\n",
+                      "      console.log(JSON.stringify(response, null, 2));\n",
+                      "  }\n",
+                      ");"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "python": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import json\n",
+                      "from watson_developer_cloud import LanguageTranslatorV3\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3(\n",
+                      "    version='2018-05-01',\n",
+                      "    iam_apikey='{iam_api_key}',\n",
+                      "    url='{url}')\n",
+                      "\n",
+                      "model_details = language_translator.get_model('9f8d9c6f-2123-462f-9793-f17fdcb77cd6').get_result()\n",
+                      "print(json.dumps(model_details, indent=2))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ruby": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "require \"json\"\n",
+                      "require \"ibm_watson/language_translator_v3\"\n",
+                      "include IBMWatson\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3.new(\n",
+                      "  version: \"2018-05-01\",\n",
+                      "  iam_apikey: \"{iam_apikey}\"\n",
+                      ")\n",
+                      "\n",
+                      "model_details = language_translator.get_model(\n",
+                      "  model_id: \"9f8d9c6f-2123-462f-9793-f17fdcb77cd6\"\n",
+                      ")\n",
+                      "puts JSON.pretty_generate(model_details.result)"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "go": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import (\n",
+                      "  \"encoding/json\"\n",
+                      "  \"fmt\"\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/core\"\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/languagetranslatorv3\"\n",
+                      ")\n",
+                      "\n",
+                      "languageTranslator, languageTranslatorErr := languagetranslatorv3.\n",
+                      "  NewLanguageTranslatorV3(&languagetranslatorv3.LanguageTranslatorV3Options{\n",
+                      "    URL: \"{url}\",\n",
+                      "    Version: \"2018-05-01\",\n",
+                      "    IAMApiKey: \"{apikey}\",\n",
+                      "  })\n",
+                      "if languageTranslatorErr != nil {\n",
+                      "  panic(languageTranslatorErr)\n",
+                      "}\n",
+                      "\n",
+                      "response, responseErr := languageTranslator.GetModel(\n",
+                      "  &languagetranslatorv3.GetModelOptions{\n",
+                      "    ModelID:    core.StringPtr(\"9f8d9c6f-2123-462f-9793-f17fdcb77cd6\"),\n",
+                      "  },\n",
+                      ")\n",
+                      "if responseErr != nil {\n",
+                      "  panic(responseErr)\n",
+                      "}\n",
+                      "result := languageTranslator.GetGetModelResult(response)\n",
+                      "b, _ := json.MarshalIndent(result, \\\"\\\", \\\"  \\\")\n",
+                      "fmt.Println(string(b))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "swift": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      [
+                        "let languageTranslator = LanguageTranslator(version: \"2018-05-01\", apiKey: \"{apiKey}\")\n",
+                        "languageTranslator.serviceURL = \"{url}\"\n",
+                        "\n",
+                        "languageTranslator.getModel(modelID: \"9f8d9c6f-2123-462f-9793-f17fdcb77cd6\") {\n",
+                        "  response, error in\n",
+                        "\n",
+                        "  guard let model = response?.result else {\n",
+                        "    print(error?.localizedDescription ?? \"unknown error\")\n",
+                        "    return\n",
+                        "  }\n",
+                        "\n",
+                        "  print(model)\n",
+                        "}"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "/v3/translate": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/VersionQueryParam"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Translation"
+        ],
+        "operationId": "translate",
+        "summary": "Translate",
+        "description": "Translates the input text from the source language to the target language.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "request",
+            "in": "body",
+            "description": "The translate request containing the text, and either a model ID or source and target language pair.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TranslateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TranslationResult"
+            },
+            "examples": {
+              "application/json": {
+                "translations": [
+                  {
+                    "translation": "Hola"
+                  }
+                ],
+                "word_count": 1,
+                "character_count": 5
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          },
+          "404": {
+            "description": "Model Not Found: the specified model_id does not exist or specified source - target language pair is not supported",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} --request POST --header \"Content-Type: application/json\" --data \"{\\\"text\\\":[\\\"Hello\\\"],\\\"model_id\\\":\\\"en-es\\\"}\" \"{url}/v3/translate?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ],
+            "java": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "IamOptions options = new IamOptions.Builder()\n",
+                      "  .apiKey(\"{iam_api_key}\"})\n",
+                      "  .build();\n",
+                      "\n",
+                      "LanguageTranslator languageTranslator = new LanguageTranslator(\n",
+                      "  \"2018-05-01\",\n",
+                      "  options);\n",
+                      "languageTranslator.setEndPoint(\"{url}\");\n",
+                      "\n",
+                      "TranslateOptions translateOptions = new TranslateOptions.Builder()\n",
+                      "  .addText(\"Hello\")\n",
+                      "  .modelId(\"en-es\")\n",
+                      "  .build();\n",
+                      "\n",
+                      "TranslationResult result = languageTranslator.translate(translateOptions)\n",
+                      "  .execute();\n",
+                      "\n",
+                      "System.out.println(result);"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "node": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "var LanguageTranslatorV3 = require('watson-developer-cloud/language-translator/v3');\n",
+                      "var languageTranslator = new LanguageTranslatorV3({\n",
+                      "  version: '2018-05-01',\n",
+                      "  iam_apikey: '{iam_api_key}',\n",
+                      "  url: '{url}'\n",
+                      "});\n",
+                      "\n",
+                      "var parameters = {\n",
+                      "  text: 'Hello',\n",
+                      "  model_id: 'en-es'\n",
+                      "};\n",
+                      "\n",
+                      "languageTranslator.translate(\n",
+                      "  parameters,\n",
+                      "  function(error, response) {\n",
+                      "    if (error)\n",
+                      "      console.log(error)\n",
+                      "    else\n",
+                      "      console.log(JSON.stringify(response, null, 2));\n",
+                      "  }\n",
+                      ");"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "python": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import json\n",
+                      "from watson_developer_cloud import LanguageTranslatorV3\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3(\n",
+                      "    version='2018-05-01',\n",
+                      "    iam_apikey='{iam_api_key}',\n",
+                      "    url='{url}')\n",
+                      "\n",
+                      "translation = language_translator.translate(\n",
+                      "    text='Hello',\n",
+                      "    model_id='en-es').get_result()\n",
+                      "print(json.dumps(translation, indent=2, ensure_ascii=False))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ruby": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "require \"json\"\n",
+                      "require \"ibm_watson/language_translator_v3\"\n",
+                      "include IBMWatson\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3.new(\n",
+                      "  version: \"2018-05-01\",\n",
+                      "  iam_apikey: \"{iam_apikey}\"\n",
+                      ")\n",
+                      "\n",
+                      "translation = language_translator.translate(\n",
+                      "  text: \"Hello\",\n",
+                      "  model_id: \"en-es\"\n",
+                      ")\n",
+                      "puts JSON.pretty_generate(translation.result)"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "go": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import (\n",
+                      "  \"encoding/json\"\n",
+                      "  \"fmt\"\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/core\"\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/languagetranslatorv3\"\n",
+                      ")\n",
+                      "\n",
+                      "languageTranslator, languageTranslatorErr := languagetranslatorv3.\n",
+                      "  NewLanguageTranslatorV3(&languagetranslatorv3.LanguageTranslatorV3Options{\n",
+                      "    URL: \"{url}\",\n",
+                      "    Version: \"2018-05-01\",\n",
+                      "    IAMApiKey: \"{apikey}\",\n",
+                      "  })\n",
+                      "if languageTranslatorErr != nil {\n",
+                      "  panic(languageTranslatorErr)\n",
+                      "}\n",
+                      "\n",
+                      "response, responseErr := languageTranslator.Translate(\n",
+                      "  &languagetranslatorv3.TranslateOptions{\n",
+                      "    Text:    []string{\"Hello\"},\n",
+                      "    ModelID: core.StringPtr(\"en-es\"),\n",
+                      "  },\n",
+                      ")\n",
+                      "if responseErr != nil {\n",
+                      "  panic(responseErr)\n",
+                      "}\n",
+                      "result := languageTranslator.GetTranslateResult(response)\n",
+                      "b, _ := json.MarshalIndent(result, \\\"\\\", \\\"  \\\")\n",
+                      "fmt.Println(string(b))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "swift": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      [
+                        "let languageTranslator = LanguageTranslator(version: \"2018-05-01\", apiKey: \"{apiKey}\")\n",
+                        "languageTranslator.serviceURL = \"{url}\"\n",
+                        "\n",
+                        "languageTranslator.translate(text: [\"Hello\"], modelID: \"en-es\") {\n",
+                        "  response, error in\n",
+                        "\n",
+                        "  guard let translation = response?.result else {\n",
+                        "    print(error?.localizedDescription ?? \"unknown error\")\n",
+                        "    return\n",
+                        "  }\n",
+                        "\n",
+                        "  print(translation)\n",
+                        "}"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "/v3/identifiable_languages": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/VersionQueryParam"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Identification"
+        ],
+        "operationId": "listIdentifiableLanguages",
+        "summary": "List identifiable languages",
+        "description": "Lists the languages that the service can identify. Returns the language code (for example, `en` for English or `es` for Spanish) and name of each language.",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentifiableLanguages"
+            },
+            "examples": {
+              "application/json": {
+                "languages": [
+                  {
+                    "language": "af",
+                    "name": "Afrikaans"
+                  },
+                  {
+                    "language": "ar",
+                    "name": "Arabic"
+                  },
+                  {
+                    "language": "az",
+                    "name": "Azerbaijani"
+                  },
+                  {
+                    "language": "ba",
+                    "name": "Bashkir"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} \"{url}/v3/identifiable_languages?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ],
+            "java": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "IamOptions options = new IamOptions.Builder()\n",
+                      "  .apiKey(\"{iam_api_key}\"})\n",
+                      "  .build();\n",
+                      "\n",
+                      "LanguageTranslator languageTranslator = new LanguageTranslator(\n",
+                      "  \"2018-05-01\",\n",
+                      "  options);\n",
+                      "languageTranslator.setEndPoint(\"{url}\");\n",
+                      "\n",
+                      "IdentifiableLanguages languages = languageTranslator.listIdentifiableLanguages()\n",
+                      "  .execute();\n",
+                      "\n",
+                      "System.out.println(languages);"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "node": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "var LanguageTranslatorV3 = require('watson-developer-cloud/language-translator/v3');\n",
+                      "var languageTranslator = new LanguageTranslatorV3({\n",
+                      "  version: '2018-05-01',\n",
+                      "  iam_apikey: '{iam_api_key}',\n",
+                      "  url: '{url}'\n",
+                      "});\n",
+                      "\n",
+                      "languageTranslator.listIdentifiableLanguages(\n",
+                      "  {},\n",
+                      "  function(err, response) {\n",
+                      "    if (err)\n",
+                      "      console.log(err)\n",
+                      "    else\n",
+                      "      console.log(JSON.stringify(response, null, 2));\n",
+                      "  }\n",
+                      ");"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "python": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import json\n",
+                      "from watson_developer_cloud import LanguageTranslatorV3\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3(\n",
+                      "    version='2018-05-01',\n",
+                      "    iam_apikey='{iam_api_key}',\n",
+                      "    url='{url}')\n",
+                      "\n",
+                      "languages = language_translator.list_identifiable_languages().get_result()\n",
+                      "print(json.dumps(languages, indent=2))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ruby": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "require \"json\"\n",
+                      "require \"ibm_watson/language_translator_v3\"\n",
+                      "include IBMWatson\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3.new(\n",
+                      "  version: \"2018-05-01\",\n",
+                      "  iam_apikey: \"{iam_apikey}\"\n",
+                      ")\n",
+                      "\n",
+                      "languages = language_translator.list_identifiable_languages\n",
+                      "puts JSON.pretty_generate(languages.result)"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "go": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import (\n",
+                      "  \"encoding/json\"\n",
+                      "  \"fmt\"\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/languagetranslatorv3\"\n",
+                      ")\n",
+                      "\n",
+                      "languageTranslator, languageTranslatorErr := languagetranslatorv3.\n",
+                      "  NewLanguageTranslatorV3(&languagetranslatorv3.LanguageTranslatorV3Options{\n",
+                      "    URL: \"{url}\",\n",
+                      "    Version: \"2018-05-01\",\n",
+                      "    IAMApiKey: \"{apikey}\",\n",
+                      "  })\n",
+                      "if languageTranslatorErr != nil {\n",
+                      "  panic(languageTranslatorErr)\n",
+                      "}\n",
+                      "\n",
+                      "response, responseErr := languageTranslator.ListIdentifiableLanguages(\n",
+                      "  &languagetranslatorv3.ListIdentifiableLanguagesOptions{},\n",
+                      ")\n",
+                      "if responseErr != nil {\n",
+                      "  panic(responseErr)\n",
+                      "}\n",
+                      "result := languageTranslator.GetListIdentifiableLanguagesResult(response)\n",
+                      "b, _ := json.MarshalIndent(result, \\\"\\\", \\\"  \\\")\n",
+                      "fmt.Println(string(b))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "swift": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      [
+                        "let languageTranslator = LanguageTranslator(version: \"2018-05-01\", apiKey: \"{apiKey}\")\n",
+                        "languageTranslator.serviceURL = \"{url}\"\n",
+                        "\n",
+                        "languageTranslator.listIdentifiableLanguages() {\n",
+                        "  response, error in\n",
+                        "\n",
+                        "  guard let languagesList = response?.result else {\n",
+                        "    print(error?.localizedDescription ?? \"unknown error\")\n",
+                        "    return\n",
+                        "  }\n",
+                        "\n",
+                        "  print(languagesList)\n",
+                        "}"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "/v3/identify": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/VersionQueryParam"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Identification"
+        ],
+        "operationId": "identify",
+        "summary": "Identify language",
+        "description": "Identifies the language of the input text.",
+        "consumes": [
+          "text/plain"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "body",
+            "description": "Input text in UTF-8 format.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IdentifiedLanguages"
+            },
+            "examples": {
+              "application/json": {
+                "languages": [
+                  {
+                    "confidence": 0.9143,
+                    "language": "en-US"
+                  },
+                  {
+                    "confidence": 0.0396,
+                    "language": "hu-HU"
+                  },
+                  {
+                    "confidence": 0.0093,
+                    "language": "ro-RO"
+                  },
+                  {
+                    "confidence": 0.005,
+                    "language": "nl-NL"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} --request POST --header \"Content-Type: text/plain\" --data \"Language translator translates text from one language to another\" \"{url}/v3/identify?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ],
+            "java": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "IamOptions options = new IamOptions.Builder()\n",
+                      "  .apiKey(\"{iam_api_key}\"})\n",
+                      "  .build();\n",
+                      "\n",
+                      "LanguageTranslator languageTranslator = new LanguageTranslator(\n",
+                      "  \"2018-05-01\",\n",
+                      "  options);\n",
+                      "languageTranslator.setEndPoint(\"{url}\");\n",
+                      "\n",
+                      "IdentifyOptions identifyOptions = new IdentifyOptions.Builder()\n",
+                      "  .text(\"Language translator translates text from one language to another\")\n",
+                      "  .build();\n",
+                      "\n",
+                      "IdentifiedLanguages languages = languageTranslator.identify(identifyOptions)\n",
+                      "  .execute();\n",
+                      "\n",
+                      "System.out.println(languages);"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "node": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "var LanguageTranslatorV3 = require('watson-developer-cloud/language-translator/v3');\n",
+                      "var languageTranslator = new LanguageTranslatorV3({\n",
+                      "  version: '2018-05-01',\n",
+                      "  iam_apikey: '{iam_api_key}',\n",
+                      "  url: '{url}'\n",
+                      "});\n",
+                      "\n",
+                      "var parameters = {\n",
+                      "  text: 'Language translator translates text from one language to another'\n",
+                      "}\n",
+                      "\n",
+                      "languageTranslator.identify(\n",
+                      "  parameters,\n",
+                      "  function(error, response) {\n",
+                      "    if (error)\n",
+                      "      console.log(error)\n",
+                      "    else\n",
+                      "      console.log(JSON.stringify(response, null, 2));\n",
+                      "  }\n",
+                      ");"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "python": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import json\n",
+                      "from watson_developer_cloud import LanguageTranslatorV3\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3(\n",
+                      "    version='2018-05-01',\n",
+                      "    iam_apikey='{iam_api_key}',\n",
+                      "    url='{url}')\n",
+                      "\n",
+                      "language = language_translator.identify(\n",
+                      "    'Language translator translates text from one language to another').get_result()\n",
+                      "print(json.dumps(language, indent=2))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "ruby": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "require \"json\"\n",
+                      "require \"ibm_watson/language_translator_v3\"\n",
+                      "include IBMWatson\n",
+                      "\n",
+                      "language_translator = LanguageTranslatorV3.new(\n",
+                      "  version: \"2018-05-01\",\n",
+                      "  iam_apikey: \"{iam_apikey}\"\n",
+                      ")\n",
+                      "\n",
+                      "language = language_translator.identify(\n",
+                      "  text: \"Language translator translates text from one language to another\"\n",
+                      ")\n",
+                      "puts JSON.pretty_generate(language.result)"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "go": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "import (\n",
+                      "  \"encoding/json\"\n",
+                      "  \"fmt\"\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/core\"\n",
+                      "  \"github.com/watson-developer-cloud/go-sdk/languagetranslatorv3\"\n",
+                      ")\n",
+                      "\n",
+                      "languageTranslator, languageTranslatorErr := languagetranslatorv3.\n",
+                      "  NewLanguageTranslatorV3(&languagetranslatorv3.LanguageTranslatorV3Options{\n",
+                      "    URL: \"{url}\",\n",
+                      "    Version: \"2018-05-01\",\n",
+                      "    IAMApiKey: \"{apikey}\",\n",
+                      "  })\n",
+                      "if languageTranslatorErr != nil {\n",
+                      "  panic(languageTranslatorErr)\n",
+                      "}\n",
+                      "\n",
+                      "response, responseErr := languageTranslator.Identify(\n",
+                      "  &languagetranslatorv3.IdentifyOptions{\n",
+                      "    Text: core.StringPtr(\"Language translator translates text from one language to another\"),\n",
+                      "  },\n",
+                      ")\n",
+                      "if responseErr != nil {\n",
+                      "  panic(responseErr)\n",
+                      "}\n",
+                      "result := languageTranslator.GetIdentifyResult(response)\n",
+                      "b, _ := json.MarshalIndent(result, \\\"\\\", \\\"  \\\")\n",
+                      "fmt.Println(string(b))"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "swift": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      [
+                        "let languageTranslator = LanguageTranslator(version: \"2018-05-01\", apiKey: \"{apiKey}\")\n",
+                        "languageTranslator.serviceURL = \"{url}\"\n",
+                        "\n",
+                        "languageTranslator.identify(text: \"Language translator translates text from one language to another\") {\n",
+                        "  response, error in\n",
+                        "\n",
+                        "  guard let languages = response?.result else {\n",
+                        "    print(error?.localizedDescription ?? \"unknown error\")\n",
+                        "    return\n",
+                        "  }\n",
+                        "\n",
+                        "  print(languages)\n",
+                        "}"
+                      ]
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "/v3/documents": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/VersionQueryParam"
+        }
+      ],
+      "get": {
+        "x-sdk-exclude": true,
+        "tags": [
+          "Document translation"
+        ],
+        "operationId": "listDocuments",
+        "summary": "List documents",
+        "description": "Lists documents that have been submitted for translation",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DocumentList"
+            },
+            "examples": {
+              "application/json": {
+                "documents": [
+                  {
+                    "document_id": "1bdb9528-bf73-45eb-87fa-c4f519af23a0",
+                    "filename": "en.docx",
+                    "model_id": "en-de",
+                    "source": "en",
+                    "target": "de",
+                    "status": "processing",
+                    "created": "2018-08-24T08:20:30.5Z"
+                  },
+                  {
+                    "document_id": "1bdb9528-bf73-45eb-87fa-c4f519af23a0",
+                    "filename": "en.pdf",
+                    "model_id": "9ef1eda2-e4dc-460f-b51a-efeec95f239f",
+                    "base_model_id": "en-fr",
+                    "source": "en",
+                    "target": "fr",
+                    "status": "available",
+                    "created": "2018-08-24T08:20:30.5Z",
+                    "completed": "2018-08-24T08:20:35.5Z"
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} \"{url}/v3/documents?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "post": {
+        "x-sdk-exclude": true,
+        "tags": [
+          "Document translation"
+        ],
+        "operationId": "translateDocument",
+        "summary": "Translate document",
+        "description": "Submit a document for translation. You can submit the document contents in the `file` parameter, or you can reference a previously submitted document by document ID.",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "model_id",
+            "in": "formData",
+            "description": "The model to use for translation. `model_id` or both `source` and `target` are required.",
+            "type": "string"
+          },
+          {
+            "name": "source",
+            "in": "formData",
+            "description": "Language code that specifies the language of the source document.",
+            "type": "string"
+          },
+          {
+            "name": "target",
+            "in": "formData",
+            "description": "Language code that specifies the target language for translation.",
+            "type": "string"
+          },
+          {
+            "name": "document_id",
+            "in": "formData",
+            "description": "To use a previously submitted document as the source for a new translation, enter the `document_id` of the document.",
+            "type": "string"
+          },
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "The source file to translate.\n\n[Supported file types](https://console.bluemix.net/docs/services/language-translator/translating-documents.html#supported-file-formats)\n\nMaximum file size: **20 MB**",
+            "required": true,
+            "type": "file",
+            "x-file-content-types": [
+              "application/powerpoint",
+              "application/mspowerpoint",
+              "application/x-rtf",
+              "application/json",
+              "application/xml",
+              "application/vnd.ms-excel",
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+              "application/vnd.ms-powerpoint",
+              "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+              "application/msword",
+              "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+              "application/vnd.oasis.opendocument.spreadsheet",
+              "application/vnd.oasis.opendocument.presentation",
+              "application/vnd.oasis.opendocument.text",
+              "application/pdf",
+              "application/rtf",
+              "text/html",
+              "text/json",
+              "text/plain",
+              "text/richtext",
+              "text/rtf",
+              "text/xml"
+            ]
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success. Use the returned `document_id` with the **Get document status** method to get the status of the translation.",
+            "schema": {
+              "$ref": "#/definitions/DocumentStatus"
+            },
+            "examples": {
+              "application/json": {
+                "document_id": "1bdb9528-bf73-45eb-87fa-c4f519af23a0",
+                "filename": "en.pdf",
+                "model_id": "en-fr",
+                "source": "en",
+                "target": "fr",
+                "status": "processing",
+                "created": "2018-08-24T08:20:30.5Z"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          },
+          "404": {
+            "$ref": "#/responses/DocumentNotFound"
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} --request POST --form \"model_id=en-fr\" --form \"file=@en.pdf\" \"{url}/v3/documents?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "/v3/documents/{document_id}": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/VersionQueryParam"
+        }
+      ],
+      "get": {
+        "x-sdk-exclude": true,
+        "tags": [
+          "Document translation"
+        ],
+        "operationId": "getDocumentStatus",
+        "summary": "Get document status",
+        "description": "Gets the translation status of a document",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "description": "The document ID of the document",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/DocumentStatus"
+            },
+            "examples": {
+              "application/json": {
+                "document_id": "1bdb9528-bf73-45eb-87fa-c4f519af23a0",
+                "filename": "en.pdf",
+                "model_id": "en-fr",
+                "source": "en",
+                "target": "fr",
+                "status": "available",
+                "created": "2018-08-24T08:20:30.5Z",
+                "completed": "2018-08-24T08:20:35.5Z"
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} \"{url}/v3/documents/1bdb9528-bf73-45eb-87fa-c4f519af23a0?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      },
+      "delete": {
+        "x-sdk-exclude": true,
+        "tags": [
+          "Document translation"
+        ],
+        "operationId": "deleteDocument",
+        "summary": "Delete document",
+        "description": "Deletes a document",
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "description": "Document ID of the document to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The document was deleted."
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          },
+          "404": {
+            "$ref": "#/responses/DocumentNotFound"
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} --request DELETE \"{url}/v3/documents/1bdb9528-bf73-45eb-87fa-c4f519af23a0?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    "/v3/documents/{document_id}/translated_document": {
+      "parameters": [
+        {
+          "$ref": "#/parameters/VersionQueryParam"
+        }
+      ],
+      "get": {
+        "x-sdk-exclude": true,
+        "operationId": "getTranslatedDocument",
+        "summary": "Get translated document",
+        "description": "Gets the translated document associated with the given document ID",
+        "tags": [
+          "Document translation"
+        ],
+        "produces": [
+          "application/powerpoint",
+          "application/mspowerpoint",
+          "application/x-rtf",
+          "application/json",
+          "application/xml",
+          "application/vnd.ms-excel",
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "application/vnd.ms-powerpoint",
+          "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+          "application/msword",
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+          "application/vnd.oasis.opendocument.spreadsheet",
+          "application/vnd.oasis.opendocument.presentation",
+          "application/vnd.oasis.opendocument.text",
+          "application/pdf",
+          "application/rtf",
+          "text/html",
+          "text/json",
+          "text/plain",
+          "text/richtext",
+          "text/rtf",
+          "text/xml"
+        ],
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "type": "string",
+            "required": true,
+            "description": "The document ID of the document that was submitted for translation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "description": "The translated document.",
+              "type": "file"
+            }
+          },
+          "400": {
+            "$ref": "#/responses/InvalidRequest"
+          },
+          "404": {
+            "description": "The document was not found, or the translated document is not available.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-sdk-operations": {
+          "request-examples": {
+            "curl": [
+              {
+                "name": "Example request",
+                "example": [
+                  {
+                    "type": "code",
+                    "source": [
+                      "curl --user apikey:{apikey} --output \"fr.pdf\" \"{url}/v3/documents/1bdb9528-bf73-45eb-87fa-c4f519af23a0/translated_document?version=2018-05-01\""
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "parameters": {
+    "VersionQueryParam": {
+      "in": "query",
+      "name": "version",
+      "required": true,
+      "default": "2018-05-01",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "type": "string",
+      "description": "Release date of the API version you want to use. Specify dates in YYYY-MM-DD format. The current version is `2018-05-01`."
+    }
+  },
+  "definitions": {
+    "ModelId": {
+      "description": "A globally unique string that identifies the underlying model that is used for translation",
+      "type": "string"
+    },
+    "BaseModelId": {
+      "description": "Model ID of the base model that was used to customize the model. If the model is not a custom model, this will be absent or an empty string.",
+      "type": "string"
+    },
+    "Source": {
+      "description": "Translation source language code",
+      "type": "string"
+    },
+    "Target": {
+      "description": "Translation target language code",
+      "type": "string"
+    },
+    "TranslationStatus": {
+      "description": "The status of the translation job associated with a submitted document",
+      "type": "string",
+      "enum": [
+        "processing",
+        "available",
+        "failed"
+      ]
+    },
+    "DocumentId": {
+      "description": "System generated ID identifying a document being translated using one specific translation model",
+      "type": "string"
+    },
+    "DocumentList": {
+      "properties": {
+        "documents": {
+          "description": "An array of all previously submitted documents.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DocumentStatus"
+          }
+        }
+      },
+      "required": [
+        "documents"
+      ]
+    },
+    "DocumentStatus": {
+      "description": "Document information, including translation status.",
+      "properties": {
+        "document_id": {
+          "$ref": "#/definitions/DocumentId"
+        },
+        "filename": {
+          "description": "filename from the submission (if it was missing in the multipart-form, 'noname.<ext matching content type>' is used.",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/TranslationStatus"
+        },
+        "model_id": {
+          "$ref": "#/definitions/ModelId"
+        },
+        "base_model_id": {
+          "$ref": "#/definitions/BaseModelId"
+        },
+        "source": {
+          "$ref": "#/definitions/Source"
+        },
+        "target": {
+          "$ref": "#/definitions/Target"
+        },
+        "created": {
+          "description": "The time when the document was submitted.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "completed": {
+          "description": "The time when the translation completed.",
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "document_id",
+        "filename",
+        "status",
+        "model_id",
+        "source",
+        "target",
+        "created"
+      ]
+    },
+    "TranslationModels": {
+      "description": "The response type for listing existing translation models.",
+      "properties": {
+        "models": {
+          "description": "An array of available models.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TranslationModel"
+          }
+        }
+      },
+      "required": [
+        "models"
+      ]
+    },
+    "TranslationModel": {
+      "description": "Response payload for models.",
+      "required": [
+        "model_id"
+      ],
+      "properties": {
+        "model_id": {
+          "$ref": "#/definitions/ModelId"
+        },
+        "name": {
+          "description": "Optional name that can be specified when the model is created.",
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/definitions/Source"
+        },
+        "target": {
+          "$ref": "#/definitions/Target"
+        },
+        "base_model_id": {
+          "description": "Model ID of the base model that was used to customize the model. If the model is not a custom model, this will be an empty string.",
+          "type": "string"
+        },
+        "domain": {
+          "description": "The domain of the translation model.",
+          "type": "string"
+        },
+        "customizable": {
+          "description": "Whether this model can be used as a base for customization. Customized models are not further customizable, and some base models are not customizable.",
+          "type": "boolean"
+        },
+        "default_model": {
+          "description": "Whether or not the model is a default model. A default model is the model for a given language pair that will be used when that language pair is specified in the source and target parameters.",
+          "type": "boolean"
+        },
+        "owner": {
+          "description": "Either an empty string, indicating the model is not a custom model, or the ID of the service instance that created the model.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Availability of a model.",
+          "type": "string",
+          "enum": [
+            "uploading",
+            "uploaded",
+            "dispatching",
+            "queued",
+            "training",
+            "trained",
+            "publishing",
+            "available",
+            "deleted",
+            "error"
+          ]
+        }
+      }
+    },
+    "DeleteModelResult": {
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "description": "\"OK\" indicates that the model was successfully deleted.",
+          "type": "string"
+        }
+      }
+    },
+    "TranslateRequest": {
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "description": "Input text in UTF-8 encoding. Multiple entries will result in multiple translations in the response.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "model_id": {
+          "$ref": "#/definitions/ModelId"
+        },
+        "source": {
+          "$ref": "#/definitions/Source"
+        },
+        "target": {
+          "$ref": "#/definitions/Target"
+        }
+      }
+    },
+    "TranslationResult": {
+      "required": [
+        "word_count",
+        "character_count",
+        "translations"
+      ],
+      "properties": {
+        "word_count": {
+          "description": "Number of words in the input text.",
+          "type": "integer"
+        },
+        "character_count": {
+          "description": "Number of characters in the input text.",
+          "type": "integer"
+        },
+        "translations": {
+          "description": "List of translation output in UTF-8, corresponding to the input text entries.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Translation"
+          }
+        }
+      }
+    },
+    "Translation": {
+      "required": [
+        "translation"
+      ],
+      "properties": {
+        "translation": {
+          "description": "Translation output in UTF-8.",
+          "type": "string",
+          "x-alternate-name": "translation_output"
+        }
+      }
+    },
+    "IdentifiableLanguages": {
+      "required": [
+        "languages"
+      ],
+      "properties": {
+        "languages": {
+          "description": "A list of all languages that the service can identify.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IdentifiableLanguage"
+          }
+        }
+      }
+    },
+    "IdentifiableLanguage": {
+      "required": [
+        "language",
+        "name"
+      ],
+      "properties": {
+        "language": {
+          "description": "The language code for an identifiable language.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the identifiable language.",
+          "type": "string"
+        }
+      }
+    },
+    "IdentifiedLanguages": {
+      "required": [
+        "languages"
+      ],
+      "properties": {
+        "languages": {
+          "description": "A ranking of identified languages with confidence scores.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IdentifiedLanguage"
+          }
+        }
+      }
+    },
+    "IdentifiedLanguage": {
+      "required": [
+        "language",
+        "confidence"
+      ],
+      "properties": {
+        "language": {
+          "description": "The language code for an identified language.",
+          "type": "string"
+        },
+        "confidence": {
+          "description": "The confidence score for the identified language.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "ErrorResponse": {
+      "required": [
+        "code",
+        "error"
+      ],
+      "properties": {
+        "code": {
+          "description": "The http error code.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "error": {
+          "description": "A short description of the error.",
+          "type": "string"
+        }
+      }
+    }
+  },
+  "responses": {
+    "InvalidRequest": {
+      "description": "Invalid request. See the response body for details.",
+      "schema": {
+        "$ref": "#/definitions/ErrorResponse"
+      }
+    },
+    "DocumentNotFound": {
+      "description": "The specified document was not found.",
+      "schema": {
+        "$ref": "#/definitions/ErrorResponse"
+      }
+    },
+    "ModelNotFound": {
+      "description": "The specified model was not found.",
+      "schema": {
+        "$ref": "#/definitions/ErrorResponse"
+      }
+    }
+  }
+}
