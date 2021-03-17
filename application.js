@@ -18,7 +18,7 @@ createTable();
 $("#btn-translate").click(function() {
     $('#traduction').load("./language-translator-v3.json", {
       "source": "fr",
-      "target": "wo",
+      "target": "en",
       "text": $("#input-text").val()
     });
   });
