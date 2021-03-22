@@ -1,4 +1,4 @@
-const fs = require('fs')
+
 var btnTranslate = document.querySelector("#btn-translate");
 var inputText = document.querySelector('#input-text');
 var outputText = document.querySelector("#output-text");
@@ -15,6 +15,7 @@ table += '</thead>';
 table += '<tbody>';
 $(document).ready(function(){
 createTable();
+const fs = require('fs')
 });
 
 function createTable(){
