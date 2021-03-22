@@ -17,8 +17,8 @@ $(document).ready(function(){
 createTable();
 fetch('./list_words.json')
 .then(results => results.json())
-.then(data => console.log(JSON.stringify(data))
-
+.then(data => jsdata = JSON.stringify(data)
+console.log(jsdata['fr'])
 )
 });
 
