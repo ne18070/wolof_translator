@@ -12,11 +12,7 @@
     <script type="text/javascript">
       $.getJSON('list_words.json', function(data) {
 
-        var text = `Date: ${data.date}<br>
-                    Time: ${data.time}<br>
-                    Unix time: ${data.milliseconds_since_epoch}`
-
-        console.log(text)
+      console.log(data)
     });
     </script>
 
