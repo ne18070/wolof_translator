@@ -15,6 +15,7 @@ table += '</thead>';
 table += '<tbody>';
 $(document).ready(function(){
 createTable();
+fetch('./list_words.json').then(results => results.json()).then(console.log)
 });
 
 function createTable(){
