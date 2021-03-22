@@ -14,10 +14,10 @@ table += '<th class="pt-3-half">WOLOF</th>';
 table += '</tr>';
 table += '</thead>';
 table += '<tbody>';
+var fs = require('fs');
+const path = require('path');
 $(document).ready(function(){
 createTable();
-const fs = require('fs');
-const path = require('path');
 
 
 });
