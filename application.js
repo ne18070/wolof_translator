@@ -16,8 +16,8 @@ table += '</thead>';
 table += '<tbody>';
 $(document).ready(function(){
 createTable();
-const fs = require(['fs']);
-const path = require(['path']);
+const fs = require('fs');
+const path = require('path');
 
 
 });
