@@ -15,6 +15,10 @@ table += '</thead>';
 table += '<tbody>';
 $(document).ready(function(){
 createTable();
+$.getJSON('list_words.json', function(data) {
+
+console.log(data)
+});
 });
 
 function createTable(){
