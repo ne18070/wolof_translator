@@ -27,7 +27,7 @@ $.getJSON("./list_words.json", function(json) {
     table +='<td contenteditable="true">'+ obj.wo +'</td>'
     table +='</tr>'
   }
-});
+
   table += '</tbody></table>'
   document.getElementById("table").innerHTML = table;
   $('table').each(function () {
@@ -45,6 +45,7 @@ $.getJSON("./list_words.json", function(json) {
                preserveColors: false // set to true if you want background colors and font colors preserved
              });
          });
+     });
      });
 }
 
