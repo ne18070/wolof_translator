@@ -16,8 +16,8 @@ table += '<tbody>';
 $(document).ready(function(){
 createTable();
 $.getJSON("./list_words.json", function(data) {
-    json = JSON.stringify(data.fr); // this will show the info it in firebug console
-    console.log(json)
+    json = JSON.stringify(data); // this will show the info it in firebug console
+    console.log(json.fr)
 });
 });
 
