@@ -1,5 +1,6 @@
 
 var btnTranslate = document.querySelector("#btn-translate");
+var btnSavejs = document.querySelector("#btn-savejs");
 var inputText = document.querySelector('#input-text');
 var outputText = document.querySelector("#output-text");
 var $bt_n = document.querySelector("#bt_n");
@@ -73,17 +74,19 @@ function getTranslationText(text){
 
 function clickEventHandler(){
     var inputTxt = inputText.value;
-    $('#traduction').load("https://watson-api-explorer.mybluemix.net/language-translation/api/v2/translate", {
-      "source": "fr",
-      "target": "en",
-      "text": $("#input-text").val()
-    });
     getTranslationText(inputTxt);
 
+}
+function saveEventHandler(){
+  let words = {
+    fr: frenchText.innerText,
+    wo: wolofText.innerText };
+    fs.writeFileSync(path.resolve(__dirname, './list_words.json'), JSON.stringify(words));
 }
 
 
 btnTranslate.addEventListener("click",clickEventHandler);
+btnSavejs.addEventListener("click",saveEventHandler);
 
 function editTranslationText(text_wolof, text_french){
 
