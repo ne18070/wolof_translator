@@ -14,8 +14,9 @@ table += '<th class="pt-3-half">WOLOF</th>';
 table += '</tr>';
 table += '</thead>';
 table += '<tbody>';
-var fs = require('fs');
-const path = require('path');
+
+var fs = require(['fs']);
+const path = require(['path']);
 $(document).ready(function(){
 createTable();
 
