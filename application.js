@@ -15,9 +15,13 @@ table += '</thead>';
 table += '<tbody>';
 $(document).ready(function(){
 createTable();
-$.getJSON("./list_words.json", function(data) {
-    json = JSON.stringify(data); // this will show the info it in firebug console
-    console.log(json.fr)
+$.getJSON("./list_words.json", function(json) {
+    // json = JSON.stringify(data); // this will show the info it in firebug console
+    for(var i = 0; i < json.length; i++) {
+    var obj = json[i];
+
+    console.log(obj.fr);
+}
 });
 });
 
