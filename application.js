@@ -15,10 +15,10 @@ table += '</thead>';
 table += '<tbody>';
 $(document).ready(function(){
 createTable();
-const fs = require('fs');
-const path = require('path');
-let rawdata = fs.readFileSync(path.resolve(__dirname, './list_words.json'));
-let student = JSON.parse(rawdata);
+const fs = require(['fs']);
+const path = require(['path']);
+
+
 });
 
 function createTable(){
