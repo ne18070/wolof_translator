@@ -78,10 +78,13 @@ function clickEventHandler(){
 
 }
 function saveEventHandler(){
-  let words = {
-    fr: frenchText.innerText,
-    wo: wolofText.innerText };
-    fs.writeFileSync(path.resolve(__dirname, './list_words.json'), JSON.stringify(words));
+  if (inputText.value !== "")
+  {
+    let words = {
+      fr: inputText.value,
+      wo: outputText.value };
+      fs.writeFileSync(path.resolve(__dirname, './list_words.json'), JSON.stringify(words));
+  }
 }
 
 
