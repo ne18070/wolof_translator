@@ -15,29 +15,22 @@ table += '</thead>';
 table += '<tbody>';
 $(document).ready(function(){
 createTable();
-$.getJSON("./list_words.json", function(json) {
-    // json = JSON.stringify(data); // this will show the info it in firebug console
-    for(var i = 0; i < json.length; i++) {
-    var obj = json[i];
-
-    console.log(obj.fr);
-}
-});
 });
 
 function createTable(){
-  for(var i = 0; i < words.length; i++)
+$.getJSON("./list_words.json", function(json) {
+  for(var i = 0; i < json.length; i++)
   {
-
+    var obj = json[i];
     table +='<tr>'
     table +='<th scope="row">'+i+'</th>'
-    table +='<td contenteditable="true">'+ words[i].word.fr +'</td>'
-    table +='<td contenteditable="true">'+ words[i].word.wo +'</td>'
+    table +='<td contenteditable="true">'+ obj.fr +'</td>'
+    table +='<td contenteditable="true">'+ obj.wo +'</td>'
     table +='</tr>'
   }
+});
   table += '</tbody></table>'
   document.getElementById("table").innerHTML = table;
-
   $('table').each(function () {
          var $table = $(this);
 
