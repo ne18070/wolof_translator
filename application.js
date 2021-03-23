@@ -19,8 +19,6 @@ var fs = require(['fs']);
 const path = require(['path']);
 $(document).ready(function(){
 createTable();
-
-
 });
 
 function createTable(){
