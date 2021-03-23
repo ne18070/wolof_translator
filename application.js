@@ -16,7 +16,7 @@ table += '</thead>';
 table += '<tbody>';
 
 var fs = require(['fs']);
-const path = require(['path']);
+// const path = require(['path']);
 $(document).ready(function(){
 createTable();
 });
@@ -82,7 +82,6 @@ function saveEventHandler(){
     let words = {
       fr: inputText.value,
       wo: outputText.value };
-      fs.writeFileSync(path.resolve(__dirname, './list_words.json'), JSON.stringify(words));
   }
 }
 
