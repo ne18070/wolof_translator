@@ -12,7 +12,7 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['jquery.table2excel'],function ($) {
+// requirejs(['jquery.table2excel'],function ($) {
     //jQuery, canvas and the app/sub module are all
     //loaded and can be used here now.
 
@@ -33,7 +33,7 @@ table += '</thead>';
 table += '<tbody>';
 
 var fs = require(['fs']);
-// const path = require(['path']);
+const path = require(['path']);
 $(document).ready(function(){
 createTable();
 });
@@ -141,7 +141,7 @@ function editTranslationText(text_wolof, text_french){
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
-});
+// });
 
 words =
   [
