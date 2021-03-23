@@ -12,7 +12,7 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['jquery.table2excel.js'],
+requirejs(['jquery.table2excel'],
 function   ($) {
     //jQuery, canvas and the app/sub module are all
     //loaded and can be used here now.
