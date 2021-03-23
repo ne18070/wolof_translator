@@ -15,7 +15,6 @@ requirejs.config({
 // requirejs(['jquery.table2excel'],function ($) {
     //jQuery, canvas and the app/sub module are all
     //loaded and can be used here now.
-var express = require('express');
 var btnTranslate = document.querySelector("#btn-translate");
 var btnSavejs = document.querySelector("#btn-savejs");
 var inputText = document.querySelector('#input-text');
